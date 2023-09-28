@@ -14,10 +14,8 @@ $(function doProgram() {
     $(".saveBtn").on("click", function() {
       var hourInput = $(this).parent().attr('id');
       var userInput = $(this).siblings(".description").val();
-      // var storeInput = JSON.parse(localStorage.getItem("hour-description")) || [];
-      // storeInput.push({hour: hourInput, description: userInput});
       
-
+      // "deletes" saved info
       if (this.userInput === "") {
         localStorage.removeItem(hourInput);
         localStorage.removeItem(userInput)
@@ -27,11 +25,7 @@ $(function doProgram() {
       localStorage.setItem(hourInput, userInput);
     })
 
-    // $("#hour-9 .description").val(localStorage.getItem('hour-9'));
-    // $("#hour-10 .description").val(localStorage.getItem('hour-10'));
-    // $("#hour-11 .description").val(localStorage.getItem('hour-11'));
-
-
+    // loop over the hours and get local storage info for each hour's description
     for (let i=9; i< 18; i++ ) {
       $("#hour-"+ i + " .description").val(localStorage.getItem('hour-'+ i));
     }
@@ -45,6 +39,7 @@ $(function doProgram() {
     // current hour in 24-hour time?
 
    
+    // loops over the hours and determines if past present or future
       var currentHour = dayjs().hour();
       console.log(currentHour);
       for (let i=9; i< 18; i++ ) {
