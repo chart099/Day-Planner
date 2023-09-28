@@ -8,19 +8,34 @@ $(function doProgram() {
     // function? How can DOM traversal be used to get the "hour-x" id of the
     // time-block containing the button that was clicked? How might the id be
     // useful when saving the description in local storage?
+    $("#currentDay").text(dayjs().format("MMM DD, YYYY hh:mm"));
+
 
     $(".saveBtn").on("click", function() {
       var hourInput = $(this).parent().attr('id');
-      var userInput = $(".description");
-      var storeInput = JSON.parse(localStorage.getItem("hour-description")) || [];
-      storeInput.push({hour: hourInput, description: userInput});
-      localStorage.setItem("hour-description", JSON.stringify(storeInput));
+      var userInput = $(this).siblings(".description").val();
+      // var storeInput = JSON.parse(localStorage.getItem("hour-description")) || [];
+      // storeInput.push({hour: hourInput, description: userInput});
+      
 
       if (this.userInput === "") {
         localStorage.removeItem(hourInput);
         localStorage.removeItem(userInput)
       }
+
+      // localStorage.setItem("hour-description", JSON.stringify(storeInput))
+      localStorage.setItem(hourInput, userInput);
     })
+
+    // $("#hour-9 .description").val(localStorage.getItem('hour-9'));
+    // $("#hour-10 .description").val(localStorage.getItem('hour-10'));
+    // $("#hour-11 .description").val(localStorage.getItem('hour-11'));
+
+
+    for (let i=9; i< 18; i++ ) {
+      $("#hour-"+ i + " .description").val(localStorage.getItem('hour-'+ i));
+    }
+
 
     //
     // TODO: Add code to apply the past, present, or future class to each time
@@ -52,7 +67,7 @@ $(function doProgram() {
     // TODO: Add code to display the current date in the header of the page.
   });
   
-  
+  doProgram();
   //Save Button: if there is content, save it to local storage. Either data or an empty string
   
   // use a for loop
